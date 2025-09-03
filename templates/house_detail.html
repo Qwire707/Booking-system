@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title%}Інформація {{ house.name }}{% endblock %}
+{% block content %}
+<h3>Назва: {{ house.name }} </h3>
+<h4>Країна: {{ house.country }} </h4>
+<h4>Адреса: {{ house.address }} </h4>
+<h4>Кількість людей: {{ house.people.count }} </h4>
+<h4>Площа: {{ house.square }} </h4>
+<h4>Ціна за добу: {{ house.price_by_day }} </h4>
+<h4>Рейтинг: {{ house.rating }} </h4>
+<h4>Заброньовано: {{ house.is_booked }} </h4>
+<p>Інформація про будинок: {{ house.info }}</p>
+<p>Створено: {{ house.created_at|date:"d.m.Y H:i" }}</p>
+{% endblock %}
