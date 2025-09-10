@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title%}Бронювання будинку {{ house.name }}{% endblock %}
+{% block content %}
+<h2>Бронювання {{ house.name }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    <select class="form-select" name="client">
+        {% for client in clients %}
+        <option value="">"{{ client.pk }}"{{ client.last_name }} {{client.first_name}}
+        </option>
+        {% endfor %}
+    </select>
+    <div class="mb-3">
+        <label for="arrival_date_id" class="form-label">Дата заїзду</label>
+        <input type="date" name=arrival_date class="form-control" id="arrival_date_id" required>
+    </div>
+    <div class="mb-3">
+        <label for="departure_date_id" class="form-label">Дата виїзду</label>
+        <input type="date" name=departure_date class="form-control" id="departure_date_id" required>
+    </div>
+    <div class="mb-3">
+        <label for="comment_id" class="form-label">Коментар</label>
+        <textarea class="form-control" name="comment" id="comment_id" rows="3"></textarea>
+    </div>
+    <button type="button" class="btn btn-dark">Підтвердити</button>
+</form>
+{% endblock %}
