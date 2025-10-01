@@ -1,4 +1,5 @@
 from django.db import models
+from django. conf import settings
 
 class House(models.Model):
     name = models.CharField(max_length=100, verbose_name="Назва будинку:")
@@ -21,31 +22,13 @@ class House(models.Model):
         verbose_name_plural = "Будинки"
         ordering = ["-created_at"]
 
-
-class Client(models.Model):
-    first_name = models.CharField(max_length=15, verbose_name="І'мя:")
-    last_name = models.CharField(max_length=15, verbose_name="Прізвище:")
-    phone_number = models.CharField(max_length=20, unique=True, verbose_name="Номер телефону:")
-    email = models.EmailField(verbose_name="Електронна пошта:")
-    age = models.PositiveIntegerField(verbose_name="Вік:")
-    created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.first_name + self.last_name
-
-    class Meta:
-        verbose_name = "Клієнт"
-        verbose_name_plural = "Клієнти"
-        ordering = ["-created_at"]
-
 class Booking(models.Model):
     STATUS_CHOICES = [
         ("in_progress", "В обробці"),
         ("confirmed", "Підтверджено"),
         ("canceled", "Скасовано")
     ]
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name="Клієнт:", related_name="bookings")
+    client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Клієнт:", related_name="bookings")
     house = models.ForeignKey(House, on_delete=models.CASCADE, verbose_name="Будинок:", related_name="bookings_all")
     arrival_date = models.DateTimeField(verbose_name="Дата заїзду:")
     departure_date = models.DateTimeField(verbose_name="Дата виїзду:")
